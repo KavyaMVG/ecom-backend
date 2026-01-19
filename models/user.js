@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema(
         delete ret.__v;
       },
     },
-  }
+  },
 );
 
-module.exports = mongoose.model("users", userSchema);
+export const userModel = mongoose.model("users", userSchema);

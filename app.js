@@ -1,14 +1,15 @@
-const express = require("express");
+import express from "express";
+import dotenv from "dotenv";
+import connect from "./database.js";
+import bodyParser from "body-parser";
+import cors from "cors";
+import * as userController from "./controllers/user.js";
+import * as productController from "./controllers/product.js";
+import * as orderController from "./controllers/order.js";
+import { auth } from "./middlewares/auth.js";
+
+dotenv.config();
 const app = express();
-const dotenv = require("dotenv").config();
-const database = require("./database");
-const PORT = process.env.PORT;
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const userController = require("./controllers/user");
-const productController = require("./controllers/product");
-const orderController = require("./controllers/order");
-const { auth } = require("./middlewares/auth");
 
 app.use(bodyParser.json());
 app.use(cors({ origin: "*" }));
@@ -27,7 +28,9 @@ app.delete("/admin/:id/products", auth, productController.deleteProduct);
 app.post("/user/order", auth, orderController.createOrder);
 app.get("/user/orders", auth, orderController.getOrders);
 
-app.listen(PORT, () => {
-    console.log(`listening at port:${PORT}`);
-    database.connect();
+app.listen(process.env.PORT, () => {
+  console.log(`listening at port:${process.env.PORT}`);
+  connect();
 });
+
+export default app;

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const orderSchema = new Schema(
@@ -15,9 +15,7 @@ const orderSchema = new Schema(
         delete ret.__v;
       },
     },
-  }
+  },
 );
 
-const orderModel = mongoose.model("orders", orderSchema);
-
-exports.orderModel = orderModel;
+export default mongoose.model("orders", orderSchema);
