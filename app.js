@@ -11,13 +11,13 @@ const orderController = require("./controllers/order");
 const { auth } = require("./middlewares/auth");
 
 app.use(bodyParser.json());
-
 app.use(cors({ origin: "*" }));
 
 app.post("/user/register", userController.userRegister);
 app.post("/user/login", userController.userLogin);
 
 app.get("/products", auth, productController.getAllProducts); // for user
+app.get("/product/:id", auth, productController.getProductById);
 
 app.get("/admin/:id/products", auth, productController.getAdminProducts);
 app.post("/admin/products", productController.addProduct);
@@ -28,6 +28,6 @@ app.post("/user/order", auth, orderController.createOrder);
 app.get("/user/orders", auth, orderController.getOrders);
 
 app.listen(PORT, () => {
-  console.log(`listening at port:${PORT}`);
-  database.connect();
+    console.log(`listening at port:${PORT}`);
+    database.connect();
 });
