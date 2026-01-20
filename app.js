@@ -16,6 +16,7 @@ app.use(cors({ origin: "*" }));
 
 app.post("/user/register", userController.userRegister);
 app.post("/user/login", userController.userLogin);
+app.post("/admin/login", userController.adminLogin);
 
 app.get("/products", auth, productController.getAllProducts); // for user
 app.get("/product/:id", auth, productController.getProductById);

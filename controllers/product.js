@@ -1,8 +1,8 @@
-import * as productModel from "../models/product.js";
+import Product from "../models/product.js";
 
 export const addProduct = async (req, res) => {
   try {
-    const product = await productModel.create(req.body);
+    const product = await Product.create(req.body);
     res.status(201).json(product);
   } catch (error) {
     res.status(400).json(error);
@@ -11,7 +11,7 @@ export const addProduct = async (req, res) => {
 
 export const getAllProducts = async (_req, res) => {
   try {
-    const products = await productModel.find({});
+    const products = await Product.find({});
     res.status(200).send(products);
   } catch (err) {
     res.status(400).send({ msg: "Server error", err });
@@ -21,7 +21,7 @@ export const getAllProducts = async (_req, res) => {
 export const getProductById = async (req, res) => {
   try {
     const id = req.params.id;
-    const products = await productModel.findById(id);
+    const products = await Product.findById(id);
     res.status(200).send(products);
   } catch (err) {
     res.status(400).send({ msg: "Server error", err });
@@ -31,7 +31,7 @@ export const getProductById = async (req, res) => {
 export const getAdminProducts = async (req, res) => {
   const { id } = req.params;
   try {
-    const products = await productModel.find({ createdBy: id });
+    const products = await Product.find({ createdBy: id });
     res.status(200).send(products);
   } catch (err) {
     res.status(400).send({ msg: "Server error", err });
@@ -41,7 +41,7 @@ export const getAdminProducts = async (req, res) => {
 export const updateProduct = async (req, res) => {
   const { id } = req.params;
   try {
-    const product = await productModel.findByIdAndUpdate(id, req.body, {
+    const product = await Product.findByIdAndUpdate(id, req.body, {
       new: true,
     });
     res.status(200).send(product);
@@ -53,7 +53,7 @@ export const updateProduct = async (req, res) => {
 export const deleteProduct = async (req, res) => {
   const { id } = req.params;
   try {
-    const product = await productModel.findByIdAndDelete(id);
+    const product = await Product.findByIdAndDelete(id);
     res.status(200).send(product);
   } catch (err) {
     res.status(400).send({ msg: "Server error", err });
