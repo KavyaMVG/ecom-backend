@@ -53,8 +53,8 @@ export const updateProduct = async (req, res) => {
 export const deleteProduct = async (req, res) => {
   const { id } = req.params;
   try {
-    const product = await Product.findByIdAndDelete(id);
-    res.status(200).send(product);
+    const response = await Product.findByIdAndDelete(id);
+    res.status(200).send({ msg: "Product deleted successfully" });
   } catch (err) {
     res.status(400).send({ msg: "Server error", err });
   }

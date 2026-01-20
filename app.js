@@ -23,8 +23,8 @@ app.get("/product/:id", auth, productController.getProductById);
 
 app.get("/admin/:id/products", auth, productController.getAdminProducts);
 app.post("/admin/products", productController.addProduct);
-app.put("/admin/:id/products", auth, productController.updateProduct);
-app.delete("/admin/:id/products", auth, productController.deleteProduct);
+app.put("/admin/products/:id", auth, productController.updateProduct);
+app.delete("/admin/products/:id", auth, productController.deleteProduct);
 
 app.post("/user/order", auth, orderController.createOrder);
 app.get("/user/orders", auth, orderController.getOrders);

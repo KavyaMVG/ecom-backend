@@ -5,7 +5,11 @@ const productSchema = new Schema(
   {
     name: { type: String, required: true },
     price: { type: String, required: true },
-    imageUrl: { type: String, required: true },
+    imageUrl: {
+      type: String,
+      required: true,
+      default: "https://picsum.photos/600/400",
+    },
     description: { type: String, required: true },
     createdBy: { type: Schema.Types.ObjectId, ref: "users", required: true },
   },
