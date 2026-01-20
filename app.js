@@ -29,9 +29,10 @@ app.delete("/admin/products/:id", auth, productController.deleteProduct);
 app.post("/user/order", auth, orderController.createOrder);
 app.get("/user/orders", auth, orderController.getOrders);
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT, async () => {
+  await connect();
+
   console.log(`listening at port:${process.env.PORT}`);
-  connect();
 });
 
 export default app;
