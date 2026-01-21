@@ -10,10 +10,26 @@ import { auth } from "./middlewares/auth.js";
 
 dotenv.config();
 const app = express();
+let isConnected = false;
 
 app.use(bodyParser.json());
 app.use(cors({ origin: "*" }));
 
+app.get("/health", (req, res) => {
+  res.status(200).send("Server is healthy");
+});
+
+app.use(async (_req, _res, next) => {
+  if (!isConnected) {
+    try {
+      await connect();
+      isConnected = true;
+      next();
+    } catch (error) {
+      console.error("Database connection failed:", error);
+    }
+  }
+});
 app.post("/user/register", userController.userRegister);
 app.post("/user/login", userController.userLogin);
 app.post("/admin/login", userController.adminLogin);
