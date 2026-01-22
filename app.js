@@ -10,7 +10,6 @@ import mongoose from "mongoose";
 
 dotenv.config();
 const app = express();
-let isConnected = false;
 
 app.use(bodyParser.json());
 app.use(cors({ origin: "*" }));

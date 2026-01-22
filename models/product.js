@@ -7,7 +7,6 @@ const productSchema = new Schema(
     price: { type: String, required: true },
     imageUrl: {
       type: String,
-      required: true,
       default: "https://picsum.photos/600/400",
     },
     description: { type: String, required: true },
