@@ -1,6 +1,5 @@
 import express from "express";
 import dotenv from "dotenv";
-import connect from "./database.js";
 import bodyParser from "body-parser";
 import cors from "cors";
 import * as userController from "./controllers/user.js";
