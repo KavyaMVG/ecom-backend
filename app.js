@@ -7,6 +7,7 @@ import * as userController from "./controllers/user.js";
 import * as productController from "./controllers/product.js";
 import * as orderController from "./controllers/order.js";
 import { auth } from "./middlewares/auth.js";
+import mongoose from "mongoose";
 
 dotenv.config();
 const app = express();
@@ -19,17 +20,14 @@ app.get("/health", (req, res) => {
   res.status(200).send("Server is healthy");
 });
 
-app.use(async (_req, _res, next) => {
-  if (!isConnected) {
-    try {
-      await connect();
-      isConnected = true;
-      next();
-    } catch (error) {
-      console.error("Database connection failed:", error);
-    }
-  }
-});
+mongoose
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.error("MongoDB connection error:", err));
+
 app.post("/user/register", userController.userRegister);
 app.post("/user/login", userController.userLogin);
 app.post("/admin/login", userController.adminLogin);
